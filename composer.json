@@ -1,0 +1,32 @@
+{
+    "name": "maxsihong/wd-service",
+    "type": "library",
+    "description": "微店服务商扩展",
+    "keywords": [
+        "wd",
+        "weidian",
+        "wd-sdk",
+        "weidian-sdk",
+        "sdk",
+        "微店"
+    ],
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Maxsihong\\WdService\\": "src/"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
+    },
+    "authors": [
+        {
+            "name": "MaxSihong",
+            "email": "maxsihong@163.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": "^7.0"
+    }
+}

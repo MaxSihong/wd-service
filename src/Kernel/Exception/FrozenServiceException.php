@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Maxsihong\WdService\Exception;
+namespace Maxsihong\WdService\Kernel\Exception;
 
 /**
  * An attempt to modify a frozen service was made.

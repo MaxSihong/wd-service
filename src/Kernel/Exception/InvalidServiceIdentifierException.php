@@ -1,6 +1,6 @@
 <?php
 
-namespace Maxsihong\WdService\Exception;
+namespace Maxsihong\WdService\Kernel\Exception;
 
 /**
  * An attempt to perform an operation that requires a service identifier was made.

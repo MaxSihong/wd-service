@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Maxsihong\WdService\Interfaces;
+namespace Maxsihong\WdService\Kernel\Contracts;
 
 /**
  * Pimple service provider interface.

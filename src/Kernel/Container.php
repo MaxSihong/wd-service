@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Maxsihong\WdService\Kernel;
 
-use Maxsihong\WdService\Exception\ExpectedInvokableException;
-use Maxsihong\WdService\Exception\FrozenServiceException;
-use Maxsihong\WdService\Exception\InvalidServiceIdentifierException;
-use Maxsihong\WdService\Exception\UnknownIdentifierException;
-use Maxsihong\WdService\Interfaces\ServiceProviderInterface;
+use Maxsihong\WdService\Kernel\Exception\ExpectedInvokableException;
+use Maxsihong\WdService\Kernel\Exception\FrozenServiceException;
+use Maxsihong\WdService\Kernel\Exception\InvalidServiceIdentifierException;
+use Maxsihong\WdService\Kernel\Exception\UnknownIdentifierException;
+use Maxsihong\WdService\Kernel\Contracts\ServiceProviderInterface;
 
 /**
  * 代码来源于 `pimple/pimple` 扩展包

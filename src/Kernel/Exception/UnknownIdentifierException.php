@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Maxsihong\WdService\Exception;
+namespace Maxsihong\WdService\Kernel\Exception;
 
 /**
  * The identifier of a valid service or parameter was expected.

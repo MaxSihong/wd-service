@@ -118,4 +118,28 @@ class WdCommon extends Client
 
         return $utils->decrypt($str);
     }
+
+    /**
+     * 根据 全局的缓存key 拼接传入类型
+     * @param string $cache_type
+     * @return string
+     * @author: 陈志洪
+     * @since: 2023/5/17
+     */
+    public function getCacheKeyByType(string $cache_type): string
+    {
+        return $this->getCacheKeyByCacheType($cache_type);
+    }
+
+    /**
+     * 根据 基础的缓存key 拼接传入类型
+     * @param string $cache_type
+     * @return string
+     * @author: 陈志洪
+     * @since: 2023/5/17
+     */
+    public function getBaseCacheKeyByType(string $cache_type): string
+    {
+        return $this->getBaseCacheKeyByCacheType($cache_type);
+    }
 }

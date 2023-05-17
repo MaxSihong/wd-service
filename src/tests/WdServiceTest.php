@@ -26,7 +26,7 @@ class WdServiceTest extends TestCase
                 "password" => "",
                 'prefix' => 'wdcache_',
             ],
-        ], ['uid' => 1, 'openid' => '1xxxx']);
+        ], ['uid' => 1, 'openid' => '1xxxxxx']);
         /**
          * 注意 后面的参数可不传是不影响创建容器的，默认是uid-0；但后面记得需要初始化这两个值(`reSetUidAndOpenidAndCacheKey`)，因为缓存都是基于这两个值存储的
          * 可以理解为uid是用户，而openid则是店铺，一个用户有多个店铺，这样的关系；
@@ -55,7 +55,7 @@ class WdServiceTest extends TestCase
 
 //    public function testAuthGetToken()
 //    {
-//        $access_token = $this->app::wdAuth()->getAccessTokenByRedirectUriCode('19e9150fe0f8e5398e464932b960f060');
+//        $access_token = $this->app::wdAuth()->getAccessTokenByRedirectUriCode('ae49574061a46829a3e84930214eca04');
 //        var_dump($access_token);
 //
 //        $this->assertIsArray($access_token);

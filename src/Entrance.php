@@ -42,4 +42,9 @@ class Entrance
     {
         return self::application()->WdCommon;
     }
+
+    public static function wdCustomer()
+    {
+        return self::application()->WdCustomer;
+    }
 }

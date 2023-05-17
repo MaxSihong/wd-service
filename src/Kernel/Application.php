@@ -13,6 +13,7 @@ use Maxsihong\WdService\Kernel\Providers\ServiceProvider;
  * @property \Maxsihong\WdService\WdService\WdTest $WdTest 测试
  * @property \Maxsihong\WdService\WdService\WdAuth $WdAuth 授权
  * @property \Maxsihong\WdService\WdService\WdCommon $WdCommon 公用
+ * @property \Maxsihong\WdService\WdService\WdCustomer $WdCustomer 用户
  */
 class Application extends BaseApplication
 {

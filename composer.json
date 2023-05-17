@@ -10,7 +10,7 @@
         "sdk",
         "微店"
     ],
-    "version": "1.0.0",
+    "version": "0.0.4",
     "license": "MIT",
     "autoload": {
         "psr-4": {

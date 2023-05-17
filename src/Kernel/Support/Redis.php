@@ -20,7 +20,7 @@ class Redis
         $this->hash = $redis_config["db"] ?? 0;
 
         if ($redis_config["pconnect"]) {
-            // //长链接，host，端口，超过 x 秒放弃链接
+            // 长链接，host，端口，超过 x 秒放弃链接
             $this->redis->pconnect($redis_config['host'], $redis_config['port'], self::REDIS_TIMEOUT);
         } else {
             //短链接

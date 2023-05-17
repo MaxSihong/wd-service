@@ -22,9 +22,8 @@ class WdServiceTest extends TestCase
             'cache' => [
                 "host" => "127.0.0.1",
                 "port" => 6379,
-                "db" => 0,
-                "auth" => "",
-                "pconnect" => 1,
+                "database" => 0,
+                "password" => "",
                 'prefix' => 'wdcache_',
             ],
         ], ['uid' => 1, 'openid' => '1xxxx']);

@@ -32,4 +32,9 @@ class Entrance
     {
         return self::application()->WdTest;
     }
+
+    public static function wdAuth()
+    {
+        return self::application()->WdAuth;
+    }
 }

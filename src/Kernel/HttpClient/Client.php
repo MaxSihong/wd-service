@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Maxsihong\WdService\Kernel\HttpClient;
 
+use Maxsihong\WdService\Enums\WdOpenEnum;
 use Maxsihong\WdService\Kernel\Command\BaseClient;
 use Maxsihong\WdService\Kernel\Container;
 use Maxsihong\WdService\Kernel\Exception\ApiException;
@@ -162,5 +163,113 @@ class Client extends BaseClient implements ClientInterface
     private function setOpenid($openid = ''): void
     {
         $this->openid = $openid ?: $this->getExtend()['openid'] ?? '';
+    }
+
+    /**
+     * 根据 全局的缓存key 拼接传入类型
+     * @param string $cache_type
+     * @return string
+     * @author: 陈志洪
+     * @since: 2023/5/17
+     */
+    protected function getCacheKeyByCacheType(string $cache_type): string
+    {
+        return $this->cache_key . $cache_type;
+    }
+
+    /**
+     * 根据 基础的缓存key 拼接传入类型
+     * @param string $cache_type
+     * @return string
+     * @author: 陈志洪
+     * @since: 2023/5/17
+     */
+    protected function getBaseCacheKeyByCacheType(string $cache_type): string
+    {
+        return $this->base_cache_key . $cache_type;
+    }
+
+    /**
+     * 重置 AccessToken redis的过期时间集合
+     * @param int $expire_in
+     * @param bool $reset 是否重置redis集合
+     * @return bool
+     * @since: 2023/5/17
+     * @author: 陈志洪
+     */
+    protected function resetExpireAccessTokenRedisList(int $expire_in, bool $reset = true): bool
+    {
+        $member = "{$this->getUid()}_{$this->getOpenid()}";
+        $access_token_expire_cache_key = $this->getBaseCacheKeyByCacheType(WdOpenEnum::CACHE_KEY_ACCESS_TOKEN_EXPIRE);
+
+        // 重置 AccessToken redis的过期时间集合
+        $this
+            ->setCacheConfig($access_token_expire_cache_key)
+            ->zrem($member);
+
+        if ($reset) {
+            $this
+                ->setCacheConfig($access_token_expire_cache_key)
+                ->zadd($expire_in, $member);
+        }
+
+        return true;
+    }
+
+    protected function reSetCacheKey()
+    {
+        $this->cache_key = "{$this->getBaseCacheKey()}{$this->getUid()}_{$this->getOpenid()}:";
+    }
+
+    /**
+     * 重置uid、openid、CacheKey
+     * @param int $uid
+     * @param string $openid
+     * @param bool $is_re_provider 是否重置容器内的数据
+     * @since: 2023/5/17
+     * @author: 陈志洪
+     */
+    public function reSetUidAndOpenidAndCacheKey(int $uid = 0, string $openid = '', bool $is_re_provider = true)
+    {
+        if ($uid) {
+            $this->setUid($uid);
+        }
+        if ($openid) {
+            $this->setOpenid($openid);
+        }
+
+        $this->reSetCacheKey();
+
+        $driver = $this->getProvider()->offsetGet('driver');
+        $driver_ucf = ucfirst($driver); // 首字母大写
+
+        if (!$is_re_provider) {
+            return;
+        }
+
+        $folders = glob(dirname(__DIR__, 2) . '/Wd*');
+
+        foreach ($folders as $folder) {
+            $model = basename($folder);
+            $files = glob($folder . "/*.php");
+
+            $object = new \ArrayObject();
+            foreach ($files as $file) {
+                $class_name = basename($file, '.php'); // 截取获取到类名称
+
+                // 同时修改容器内的key
+                $this->getProvider()
+                    ->offsetGet($class_name)->getProvider()
+                    ->offsetSet('extend', [
+                        'uid' => $this->uid,
+                        'openid' => $this->openid
+                    ]);
+
+                // 同时重置容器内的 cache_key
+                $this->getProvider()
+                    ->offsetGet($class_name)
+                    ->reSetUidAndOpenidAndCacheKey($uid, $openid, false);
+            }
+        }
     }
 }

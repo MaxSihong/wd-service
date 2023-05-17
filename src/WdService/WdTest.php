@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Maxsihong\WdService\WdService;
 
 use Maxsihong\WdService\Kernel\HttpClient\Client;

@@ -11,6 +11,7 @@ use Maxsihong\WdService\Kernel\Providers\ServiceProvider;
  * 微店
  *
  * @property \Maxsihong\WdService\WdService\WdTest $WdTest 测试
+ * @property \Maxsihong\WdService\WdService\WdAuth $WdAuth 授权
  */
 class Application extends BaseApplication
 {

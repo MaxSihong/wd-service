@@ -26,7 +26,7 @@ class ServiceProvider implements ServiceProviderInterface
                 $class_name = basename($file, '.php'); // 截取获取到类名称
 
                 $init_class_name = "\\Maxsihong\\WdService\\{$model}\\{$class_name}";
-                $pimple["{$class_name}"] = function ($pimple) use ($init_class_name) {
+                $pimple[$class_name] = function ($pimple) use ($init_class_name) {
                     return new $init_class_name($pimple);
                 };
             }

@@ -12,7 +12,7 @@
 ## 安装
 
 ```bash
-composer require 
+composer require maxsihong/wd-service
 ```
 
 ## 使用示例

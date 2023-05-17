@@ -1,9 +1,12 @@
-<h1 align="left"><a href="https://github.com/MaxSihong/wd-service">微店服务商扩展</a></h1>
+<h1><a href="https://github.com/MaxSihong/wd-service">微店服务商扩展</a></h1>
 
 📦 微店服务商扩展是一个基于PHP的扩展，用于在微店平台上开发服务商应用。
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-<img alt="GitHub code size in bytes" src="https://img.shields.io/github/languages/code-size/MaxSihong/wd-service">
+<img alt="GitHub code size in bytes" src="https://img.shields.io/github/languages/code-size/MaxSihong/wd-service"></img>
+[![Latest Stable Version](https://poser.pugx.org/MaxSihong/wd-service/v/stable.svg)](https://packagist.org/packages/MaxSihong/wd-servicet)
+[![Latest Unstable Version](https://poser.pugx.org/MaxSihong/wd-service/v/unstable.svg)](https://packagist.org/packages/MaxSihong/wd-service)
+[![Total Downloads](https://poser.pugx.org/MaxSihong/wd-service/downloads)](https://packagist.org/packages/MaxSihong/wd-service)
+[![License](https://poser.pugx.org/MaxSihong/wd-service/license)](https://packagist.org/packages/MaxSihong/wd-service)
 
 ## 环境需求
 

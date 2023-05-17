@@ -29,9 +29,8 @@ $config = [
     'cache' => [
         "host" => "127.0.0.1",
         "port" => 6379,
-        "db" => 0, // 选择redis库,0~15 共16个库
-        "auth" => "", // 密码
-        "pconnect" => 1, // 是否长连接
+        "database" => 0, // 选择redis库,0~15 共16个库
+        "password" => "", // 密码
         'prefix' => 'wdcache_', // 前缀
     ],
 ];

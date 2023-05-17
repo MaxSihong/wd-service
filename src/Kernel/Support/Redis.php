@@ -8,32 +8,26 @@ use Maxsihong\WdService\Kernel\Exception\ApiException;
 
 class Redis
 {
-    const REDIS_TIMEOUT = 0; //超时
     private static array $_instance = []; //类单例数组
-    private int $hash; // 选择redis库,0~15 共16个库
+    private int $database; // 选择redis库,0~15 共16个库
     private \Redis $redis; // redis连接句柄
 
     private function __construct($redis_config = [])
     {
 
         $this->redis = new \Redis();
-        $this->hash = $redis_config["db"] ?? 0;
+        $this->database = intval($redis_config['database'] ?? 0);
 
-        if ($redis_config["pconnect"]) {
-            // 长链接，host，端口，超过 x 秒放弃链接
-            $this->redis->pconnect($redis_config['host'], $redis_config['port'], self::REDIS_TIMEOUT);
-        } else {
-            //短链接
-            $this->redis->connect($redis_config['host'], $redis_config['port'], self::REDIS_TIMEOUT);
-        }
+        // 长链接，host，端口，超过 x 秒放弃链接
+        $this->redis->pconnect($redis_config['host'], intval($redis_config['port']), 0);
 
         // 设置连接密码
-        if ($redis_config["auth"]) {
-            $this->redis->auth($redis_config["auth"]);
+        if ($redis_config["password"]) {
+            $this->redis->auth($redis_config['password']);
         }
 
         // 选择库 0-15
-        $this->redis->select($this->hash);
+        $this->redis->select($this->database);
     }
 
     //外部获取实例
@@ -69,7 +63,7 @@ class Redis
      */
     public function __destruct()
     {
-        $key = $this->hash;
+        $key = $this->database;
         $this->redis->close();
         self::$_instance[$key] = null;
     }

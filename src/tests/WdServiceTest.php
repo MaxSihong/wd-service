@@ -27,7 +27,7 @@ class WdServiceTest extends TestCase
                 "pconnect" => 1,
                 'prefix' => 'wdcache_',
             ],
-        ], ['uid' => 0, 'openid' => '1642388722']);
+        ], ['uid' => 1, 'openid' => '1xxxx']);
         /**
          * 注意 后面的参数可不传是不影响创建容器的，默认是uid-0；但后面记得需要初始化这两个值(`reSetUidAndOpenidAndCacheKey`)，因为缓存都是基于这两个值存储的
          * 可以理解为uid是用户，而openid则是店铺，一个用户有多个店铺，这样的关系；

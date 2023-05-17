@@ -173,4 +173,43 @@ class WdAuth extends Client
 
         return $access_token_info;
     }
+
+    /**
+     * 获取要过期的token
+     * @param $score1
+     * @param $score2
+     * @return mixed
+     * @since: 2023/5/17
+     * @author: 陈志洪
+     */
+    public function getReadyExpireAccessTokens($score1, $score2)
+    {
+        $access_token_expire_cache_key = $this->getBaseCacheKeyByCacheType(WdOpenEnum::CACHE_KEY_ACCESS_TOKEN_EXPIRE);
+
+        return $this->setCacheConfig($access_token_expire_cache_key)->zrangebyscore($score1, $score2);
+    }
+
+    /**
+     * 主动刷新token
+     * @param $uid
+     * @param $openid
+     * @return bool
+     * @throws \RedisException
+     * @author: 陈志洪
+     * @since: 2023/5/17
+     */
+    public function initiativeRefreshToken($uid, $openid)
+    {
+        // 初始化 cache_key
+        $this->reSetUidAndOpenidAndCacheKey(intval($uid), $openid);
+
+        $access_token_info = $this->getAccessToken(false, false);
+        // 如果没有则表示该token已经超过30天有效期，必须重新授权
+        if (!$access_token_info) {
+            return false;
+        }
+
+        $this->refreshToken($access_token_info['refresh_token'], $access_token_info['refreshExpireTime']);
+        return true;
+    }
 }

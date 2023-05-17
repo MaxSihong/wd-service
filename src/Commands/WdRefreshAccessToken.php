@@ -4,7 +4,6 @@ namespace Maxsihong\WdService\Commands;
 
 use Maxsihong\WdService\Entrance;
 use Maxsihong\WdService\Enums\WdOpenEnum;
-use Maxsihong\WdService\Kernel\Exception\ApiException;
 
 /**
  * 微店 -- 每天主动刷新AccessToken

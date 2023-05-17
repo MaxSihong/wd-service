@@ -64,7 +64,7 @@ public function register()
     $this->app->bind("onlineretailers.wd", function ($app, $init_param) {
         // 微店的话必须初始化经销商uid
         if (empty($init_param) || !isset($init_param['uid'])) {
-            throw new ApiException('必须要初始化用户uid');
+            throw new \Maxsihong\WdService\Kernel\Exception\ApiException('必须要初始化用户uid');
         }
 
         $init_param['openid'] = $init_param['openid'] ?? '';

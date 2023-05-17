@@ -6,6 +6,7 @@ namespace Maxsihong\WdService\WdService;
 
 use Maxsihong\WdService\Kernel\Exception\ApiException;
 use Maxsihong\WdService\Kernel\HttpClient\Client;
+use Maxsihong\WdService\Kernel\Support\AESUtils;
 
 class WdCommon extends Client
 {
@@ -88,5 +89,33 @@ class WdCommon extends Client
         unlink($file_save_url . $file_name);
 
         return $result['result'];
+    }
+
+    /**
+     * 加密
+     * @param string $str
+     * @return string
+     * @author: 陈志洪
+     * @since: 2023/5/17
+     */
+    public function encrypt(string $str): string
+    {
+        $utils = new AESUtils($this->app_id, $this->app_secret, $this->redis);
+
+        return $utils->encrypt($str);
+    }
+
+    /**
+     * 解密
+     * @param string $str
+     * @return string
+     * @author: 陈志洪
+     * @since: 2023/5/17
+     */
+    public function decrypt(string $str): string
+    {
+        $utils = new AESUtils($this->app_id, $this->app_secret, $this->redis);
+
+        return $utils->decrypt($str);
     }
 }

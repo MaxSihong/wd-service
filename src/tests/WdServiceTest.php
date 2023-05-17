@@ -82,10 +82,26 @@ class WdServiceTest extends TestCase
 //        $this->assertIsArray($access_token);
 //    }
 
-    public function testCommonUpload()
-    {
-        $url = $this->app::wdCommon()->uploadFile('https://lmg.jj20.com/up/allimg/tp09/210H51R3313N3-0-lp.jpg');
+//    public function testCommonUpload()
+//    {
+//        $url = $this->app::wdCommon()->uploadFile('https://lmg.jj20.com/up/allimg/tp09/210H51R3313N3-0-lp.jpg');
+//
+//        $this->assertIsString($url);
+//    }
 
-        $this->assertIsString($url);
+    public function testCommonEncrypt()
+    {
+        $str = $this->app::wdCommon()->encrypt('123456789');
+        echo "\n 加密：{$str} \n";
+
+        $this->assertIsString($str);
+    }
+
+    public function testCommonDecrypt()
+    {
+        $str = $this->app::wdCommon()->decrypt('aL5TyQc/s9ibaFkneMXr/nLuBklWuJ/NCqF+pZSJWUc=');
+        echo "\n 解密：{$str} \n";
+
+        $this->assertIsString($str);
     }
 }

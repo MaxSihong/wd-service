@@ -19,7 +19,7 @@ if (!function_exists('strToGreatHump')) {
  * 请求网址
  * @param string $url 网址
  * @param string $type 请求类型
- * @param array $post_data 数据包
+ * @param array|string $post_data 数据包
  * @param array $header 头部
  * @param int $time_out 超时时间
  * @return bool|string
@@ -27,7 +27,7 @@ if (!function_exists('strToGreatHump')) {
  * @since: 2023/5/17
  */
 if (!function_exists('request_url')) {
-    function request_url(string $url, string $type = 'get', array $post_data = [], array $header = array(), int $time_out = 10)
+    function request_url(string $url, string $type = 'get', $post_data = [], array $header = array(), int $time_out = 10)
     {
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $url);
@@ -93,5 +93,74 @@ if (! function_exists('wd_check_result_err')) {
                 'param' => $param,
             ],
         ]);
+    }
+}
+
+/**
+ * string 转 byte[]
+ * @desc: 将字符串转换成字节数组
+ * @param string $string 处理字符串
+ * @return array
+ * @author: 陈志洪
+ * @since: 2023/5/17
+ */
+if (!function_exists('getBytes')) {
+    function getBytes(string $string): array
+    {
+        $bytes = array();
+        for ($i = 0; $i < strlen($string); $i++) {    //遍历每一个字符 用ord函数把它们拼接成一个php数组
+            if (ord($string[$i]) >= 128) {
+                $byte = ord($string[$i]) - 256;
+            } else {
+                $byte = ord($string[$i]);
+            }
+            $bytes[] = $byte;
+        }
+        return $bytes;
+    }
+}
+
+/**
+ * string 转 byte[]
+ * @desc: 将字符转为byte
+ * @param int $num 处理字符串
+ * @return float|int
+ * @author: 陈志洪
+ * @since: 2023/5/17
+ */
+if (! function_exists('toByte')) {
+    function toByte(int $num)
+    {
+        $num = decbin($num);    // 转2进制
+        $num = substr($num, -8); //取后8位
+        $sign = $num[0]; //获取高位符
+        if ($sign == 1 && strlen($num) == 8) { //高位是1 代表是负数 ,则要减去256
+            return bindec($num) - 256;
+        }
+        return bindec($num);
+    }
+}
+
+/**
+ * 替换数组内容
+ * @param array $src 被替换的数组
+ * @param int $srcPos 从$src数组哪个下标开始替换
+ * @param array $dest 当前需要返回的数组
+ * @param int $destPos 数组开始位置
+ * @param int $length 结束位置
+ * @return array
+ * @author: 陈志洪
+ * @since: 2023/5/17
+ */
+if (! function_exists('arrayCopy')) {
+    function arrayCopy(array $src = [], int $srcPos = 0, array $dest = [], int $destPos = 0, int $length = 0): array
+    {
+        $src = array_slice($src, $srcPos, $length);
+        $length_end = $destPos + $length;
+        for ($i = $destPos; $i < $length_end; $i++) {
+            $dest[$i] = $src[$i - $destPos];
+        }
+        unset($value);
+        return $dest;
     }
 }

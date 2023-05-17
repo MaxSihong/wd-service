@@ -33,18 +33,18 @@ class Redis
     //外部获取实例
     public static function getInstance($redis_config)
     {
-        if (!isset(self::$_instance[$redis_config["db"]])) {
-            self::$_instance[$redis_config["db"]] = new self($redis_config);
+        if (!isset(self::$_instance[$redis_config["database"]])) {
+            self::$_instance[$redis_config["database"]] = new self($redis_config);
         }
 
         //防止挂掉
         try {
-            self::$_instance[$redis_config["db"]]->Ping() == 'Pong';
+            self::$_instance[$redis_config["database"]]->Ping() == 'Pong';
         } catch (\Exception $e) {
             throw new ApiException('redis client error. msg: ' . $e->getMessage());
         }
 
-        return self::$_instance[$redis_config["db"]];
+        return self::$_instance[$redis_config["database"]];
     }
 
     //获取redis的连接实例

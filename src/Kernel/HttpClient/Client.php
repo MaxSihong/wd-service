@@ -77,7 +77,7 @@ class Client extends BaseClient implements ClientInterface
 
     protected function getAccessToken(bool $only_token = true)
     {
-        return $this->getProvider()->offsetGet('wd.wdAuth')->getAccessToken($only_token);
+        return $this->getProvider()->offsetGet('WdAuth')->getAccessToken($only_token);
     }
 
     private function doResult($uri, $param, $result, $ref_req)
@@ -89,7 +89,7 @@ class Client extends BaseClient implements ClientInterface
             // token 过期
             if ($e->getCode() == 10013) {
                 // 刷新或重新授权token
-                $this->getProvider()->offsetGet('wd.wdAuth')->refreshToken();
+                $this->getProvider()->offsetGet('WdAuth')->refreshToken();
                 // 重新请求本次业务需要的接口
                 return $this->api($ref_req['uri'], $ref_req['version'], $ref_req['post_data'], $ref_req['header'], $ref_req['time_out']);
             }

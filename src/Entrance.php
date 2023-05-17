@@ -37,4 +37,9 @@ class Entrance
     {
         return self::application()->WdAuth;
     }
+
+    public static function wdCommon()
+    {
+        return self::application()->WdCommon;
+    }
 }

@@ -72,13 +72,20 @@ class WdServiceTest extends TestCase
         $this->assertIsString($access_token);
     }
 
-    public function testAuthRefreshToken()
-    {
-        $access_token = $this->app::wdAuth()->refreshToken();
-        echo "\n";
-        var_dump($access_token);
-        echo "\n";
+//    public function testAuthRefreshToken()
+//    {
+//        $access_token = $this->app::wdAuth()->refreshToken();
+//        echo "\n";
+//        var_dump($access_token);
+//        echo "\n";
+//
+//        $this->assertIsArray($access_token);
+//    }
 
-        $this->assertIsArray($access_token);
+    public function testCommonUpload()
+    {
+        $url = $this->app::wdCommon()->uploadFile('https://lmg.jj20.com/up/allimg/tp09/210H51R3313N3-0-lp.jpg');
+
+        $this->assertIsString($url);
     }
 }

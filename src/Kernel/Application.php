@@ -10,7 +10,7 @@ use Maxsihong\WdService\Kernel\Providers\ServiceProvider;
 /**
  * 微店
  *
- * @property \Maxsihong\WdService\WdService\WdOrder $WdOrder 订单
+ * @property \Maxsihong\WdService\WdService\WdTest $WdTest 测试
  */
 class Application extends BaseApplication
 {

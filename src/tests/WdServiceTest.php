@@ -16,12 +16,27 @@ class WdServiceTest extends TestCase
         $this->app = new Entrance([
             'app_id' => '1',
             'app_secret' => '1',
-            'domain' => 'hhh'
+            'domain' => 'hhh',
+            // redis
+            'cache' => [
+                "host" => "127.0.0.1",
+                "port" => 6379,
+                "db" => 0,
+                "auth" => "",
+                "pconnect" => 1,
+                'prefix' => 'wdcache_',
+            ],
         ]);
     }
 
     public function testCallOrderTest()
     {
-        $this->assertEquals($this->app::wdOrder()->test(), 'This is WdOrder.');
+        // check result is 'This is WdTest.'
+        $this->assertEquals($this->app::wdTest()->test(), 'This is WdTest.');
+    }
+
+    public function testSetAndGetRedis()
+    {
+        $this->assertEquals($this->app::wdTest()->testRedis(), 'redis success!');
     }
 }

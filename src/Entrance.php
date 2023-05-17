@@ -28,8 +28,8 @@ class Entrance
         return self::$instance;
     }
 
-    public static function wdOrder()
+    public static function wdTest()
     {
-        return self::application()->WdOrder;
+        return self::application()->WdTest;
     }
 }

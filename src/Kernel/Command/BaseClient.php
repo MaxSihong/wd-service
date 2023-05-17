@@ -6,9 +6,13 @@ namespace Maxsihong\WdService\Kernel\Command;
 
 use Maxsihong\WdService\Kernel\Container;
 use Maxsihong\WdService\Kernel\Exception\ApiException;
+use Maxsihong\WdService\Kernel\Support\Redis;
+use Maxsihong\WdService\Kernel\Traits\RedisCache;
 
 class BaseClient
 {
+    use RedisCache;
+
     /**
      * 驱动
      * @var string
@@ -50,9 +54,10 @@ class BaseClient
         if (empty($this->app_id) || empty($this->app_secret) || empty($this->domain)) {
             throw new ApiException('请配置好 [config] 内的appid、app_secret、domain');
         }
+        $this->redis = Redis::getInstance($this->config['cache']);
 
         // 初始化缓存key前缀
-        $this->cache_key .= ':';
+        $this->cache_key = ($this->config['cache']['prefix'] ?? '') . $this->cache_key . ':';
         $this->base_cache_key = $this->cache_key;
     }
 

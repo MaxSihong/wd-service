@@ -14,6 +14,7 @@ use Maxsihong\WdService\Kernel\Providers\ServiceProvider;
  * @property \Maxsihong\WdService\WdService\WdAuth $WdAuth 授权
  * @property \Maxsihong\WdService\WdService\WdCommon $WdCommon 公用
  * @property \Maxsihong\WdService\WdService\WdCustomer $WdCustomer 用户
+ * @property \Maxsihong\WdService\WdService\WdItem $WdItem 商品
  */
 class Application extends BaseApplication
 {

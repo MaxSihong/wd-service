@@ -47,4 +47,9 @@ class Entrance
     {
         return self::application()->WdCustomer;
     }
+
+    public static function wdItem()
+    {
+        return self::application()->WdItem;
+    }
 }

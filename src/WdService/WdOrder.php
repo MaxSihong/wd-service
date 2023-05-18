@@ -45,9 +45,7 @@ class WdOrder extends Client
      */
     public function show(string $order_id): array
     {
-        return $this->api('vdian.order.get', '2.0', [
-            'order_id' => $order_id,
-        ]);
+        return $this->api('vdian.order.get', '2.0', compact('order_id'));
     }
 
     /**
@@ -68,14 +66,9 @@ class WdOrder extends Client
      */
     public function sellerCreateRefund(string $order_id, int $reasonId, string $refundItemFee, string $refundExpressFee, string $refundDesc, array $refundSubOrderIdList): array
     {
-        return $this->api('open.sellerCreateRefund', '1.0', [
-            'order_id' => $order_id,
-            'reasonId' => $reasonId, // 退款原因，1 表示：缺货；2 表示：协商一致退款；3 表示其他原因
-            'refundItemFee' => $refundItemFee,
-            'refundExpressFee' => $refundExpressFee,
-            'refundDesc' => $refundDesc,
-            'refundSubOrderIdList' => $refundSubOrderIdList,
-        ]);
+        return $this->api('open.sellerCreateRefund', '1.0', compact(
+            'order_id', 'reasonId', 'refundItemFee', 'refundExpressFee', 'refundDesc', 'refundSubOrderIdList'
+        ));
     }
 
     /**
@@ -97,18 +90,17 @@ class WdOrder extends Client
      * @param string $express_no 快递单号
      * @param string $express_type 快递公司编号
      * @param string $express_custom 自定义快递
+     * @param array $eCodeList 卡券码，旅游门票类订单必传，非门票订单不传。旅游门票订单发货时，只需传order_id、eCodeList即可。如果订单内商品数量n件，eCode传n个
+     * @param array $itemUpdates 商品更新数组
      * @return array
      * @since: 2023/5/17
      * @author: 陈志洪
      */
-    public function deliver(string $order_id, string $express_no, string $express_type, string $express_custom = ''): array
+    public function deliver(string $order_id, string $express_no, string $express_type, string $express_custom = '', array $eCodeList = [], array $itemUpdates = []): array
     {
-        return $this->api('vdian.order.deliver', '1.0', [
-            'order_id' => $order_id,
-            'express_type' => $express_type,
-            'express_no' => $express_no,
-            'express_custom' => $express_custom,
-        ]);
+        return $this->api('vdian.order.deliver', '1.0', compact(
+            'order_id', 'express_no', 'express_type', 'express_custom', 'eCodeList', 'itemUpdates'
+        ));
     }
 
     /**
@@ -119,22 +111,19 @@ class WdOrder extends Client
      * @param string $express_type 快递公司编号
      * @param string $express_custom 自定义快递
      * @param array $item 如果通过商品进行发货，则必传item_id(item_sku_id)字段;如果通过子订单号发货，则sub_order_id必传
-     * @param string -item_id 商品id，对应订单详情接口的item_id(不要传cur_shop_item_id)
-     * @param string -item_sku_id sku ID,对应订单详情接口的sku_id(不要传cur_shop_sku_id)
-     * @param string -sub_order_id 子订单号
+     * @param string $item[]['item_id'] 商品id，对应订单详情接口的item_id(不要传cur_shop_item_id)
+     * @param string $item[]['item_sku_id sku'] ID,对应订单详情接口的sku_id(不要传cur_shop_sku_id)
+     * @param string $item[]['sub_order_id'] 子订单号
+     * @param array $itemUpdates 商品更新数组
      * @return array
      * @since: 2023/5/17
      * @author: 陈志洪
      */
-    public function splitDeliver(string $order_id, string $express_no, string $express_type, string $express_custom, array $item): array
+    public function splitDeliver(string $order_id, string $express_no, string $express_type, string $express_custom, array $item, array $itemUpdates = []): array
     {
-        return $this->api('vdian.order.deliver.split', '1.0', [
-            'order_id' => $order_id,
-            'express_type' => $express_type, // 圆通速递
-            'express_no' => $express_no,
-            'express_custom' => $express_custom,
-            'items' => $item,
-        ]);
+        return $this->api('vdian.order.deliver.split', '1.0', compact(
+            'order_id', 'express_no', 'express_type', 'express_custom', 'item', 'itemUpdates'
+        ));
     }
 
     /**
@@ -142,6 +131,7 @@ class WdOrder extends Client
      * @link https://open.weidian.com/?shopId=1642388722#/api/211
      * @param string $order_id 订单号
      * @param array $spilt_item_list 如果通过商品进行子单拆单发货，则item_id(sku_id)必传；如果通过子订单号进行发货，则subOrderId必传
+     * @param array $itemUpdates 商品更新数组
      * @param string -sku_id sku ID，1.商品如果没有sku,传0；2.对应订单详情接口的sku_id(不要传cur_shop_sku_id)
      * @param string -item_id 商品id，对应订单详情接口的item_id(不要传cur_shop_item_id)
      * @param int -count 发货商品数量
@@ -153,11 +143,10 @@ class WdOrder extends Client
      * @since: 2023/5/17
      * @author: 陈志洪
      */
-    public function deliverSplitSub(string $order_id, array $spilt_item_list): array
+    public function deliverSplitSub(string $order_id, array $spilt_item_list, array $itemUpdates = []): array
     {
-        return $this->api('vdian.order.deliver.split.sub', '1.0', [
-            'order_id' => $order_id,
-            'spilt_item_list' => $spilt_item_list,
-        ]);
+        return $this->api('vdian.order.deliver.split.sub', '1.0', compact(
+            'order_id', 'spilt_item_list', 'itemUpdates'
+        ));
     }
 }

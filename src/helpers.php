@@ -72,7 +72,7 @@ if (!function_exists('request_url')) {
  * @author: 陈志洪
  * @since: 2023/5/17
  */
-if (! function_exists('wd_check_result_err')) {
+if (!function_exists('wd_check_result_err')) {
     function wd_check_result_err(?array $result, string $uri, $param = '{}'): bool
     {
         if ($result['status']['status_code'] == 0) {
@@ -128,7 +128,7 @@ if (!function_exists('getBytes')) {
  * @author: 陈志洪
  * @since: 2023/5/17
  */
-if (! function_exists('toByte')) {
+if (!function_exists('toByte')) {
     function toByte(int $num)
     {
         $num = decbin($num);    // 转2进制
@@ -152,7 +152,7 @@ if (! function_exists('toByte')) {
  * @author: 陈志洪
  * @since: 2023/5/17
  */
-if (! function_exists('arrayCopy')) {
+if (!function_exists('arrayCopy')) {
     function arrayCopy(array $src = [], int $srcPos = 0, array $dest = [], int $destPos = 0, int $length = 0): array
     {
         $src = array_slice($src, $srcPos, $length);
@@ -162,5 +162,31 @@ if (! function_exists('arrayCopy')) {
         }
         unset($value);
         return $dest;
+    }
+}
+
+/**
+ * 从数组中获取某些数据
+ * @param array $list
+ * @param array $fields
+ * @return array
+ * @since: 2023/5/17
+ * @author: 陈志洪
+ */
+if (!function_exists('arrayListOnly')) {
+    function arrayListOnly(array $list, array $fields)
+    {
+        if (empty($list)) {
+            return $list;
+        }
+
+        $arr = [];
+        foreach ($fields as $field) {
+            if (isset($list[$field])) {
+                $arr[$field] = $list[$field];
+            }
+        }
+
+        return $arr;
     }
 }

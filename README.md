@@ -63,7 +63,7 @@ $app = new \Maxsihong\WdService\Entrance($config, $init_param);
 $str = $app::wdCommon()->encrypt('123456789');
 ```
 
-## Laravel使用示例
+## Laravel 使用示例
 
 注册服务
 ```php

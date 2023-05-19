@@ -10,6 +10,7 @@ class WdOrder extends Client
 {
     /**
      * 电子卡券-核销码查询
+     * @link https://open.weidian.com/#/api/1069
      * @param string $ecode 核销码
      * @return array
      * @author: 陈志洪

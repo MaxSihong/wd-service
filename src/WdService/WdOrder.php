@@ -49,6 +49,23 @@ class WdOrder extends Client
     }
 
     /**
+     * 获取卖家自提地址
+     * @link https://open.weidian.com/#/api/319
+     * @param int $page_num 页码,不传默认为0
+     * @param int $page_size 每页条数
+     * @param int $type 地址类型, 自提地址-2
+     * @return array
+     * @author: 陈志洪
+     * @since: 2023/5/19
+     */
+    public function sellerAddressListGet(int $page_num = 1, int $page_size = 15, int $type = 2): array
+    {
+        return $this->api('vdian.seller.address.list.get', '1.0', compact(
+            'page_num', 'page_size', 'type'
+        ));
+    }
+
+    /**
      * 获取订单详情
      * @link https://open.weidian.com/#/api/1064
      * @param string $order_id 订单号

@@ -24,7 +24,7 @@
 
 > 项目如需接收微店的消息推送，则需要添加个每天执行的定时任务，主动刷新用户的 `access_token`。
 > 因为微店要求如果 `access_token`无效的话，则不会主动推送消息通知。
-> 定时任务：`Maxsihong\WdService\Commands`
+> 定时任务：`Maxsihong\WdService\Commands\WdRefreshAccessToken`
 
 ## 安装
 

@@ -48,6 +48,11 @@ class Entrance
         return self::application()->WdCustomer;
     }
 
+    public static function wdOrder()
+    {
+        return self::application()->WdOrder;
+    }
+
     public static function wdItem()
     {
         return self::application()->WdItem;

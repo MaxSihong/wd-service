@@ -28,7 +28,7 @@ composer require maxsihong/wd-service
 
 ## 使用示例
 
-实例化容器:
+实例化:
 ```php
 // 配置
 $config = [
@@ -63,14 +63,19 @@ $app = new \Maxsihong\WdService\Entrance($config, $init_param);
 $str = $app::wdCommon()->encrypt('123456789');
 ```
 
-Laravel内实例化容器，可以放到服务内
+## Laravel使用示例
+
+注册服务
 ```php
 // 在 `App\Providers\AppServiceProvider` 类
 public function register()
 {
     // 注册 微店 服务容器
     $this->app->bind("onlineretailers.wd", function ($app, $init_param) {
-        // 微店的话必须初始化经销商uid
+        /**
+        * 初始化用户uid，这个判断可根据自己业务来判断是否需要
+        * 不加的话则直接初始化即可：$init_param['uid'] = $init_param['uid'] ?? 0;
+         */
         if (empty($init_param) || !isset($init_param['uid'])) {
             throw new \Maxsihong\WdService\Kernel\Exception\ApiException('必须要初始化用户uid');
         }
@@ -83,9 +88,11 @@ public function register()
 }
 ```
 
-Laravel容器方式使用
+使用
 ```php
 // 获取容器
+// 想要idea更好的提示，可增加下面 @var 的注释
+/** @var \Maxsihong\WdService\Entrance $app */
 $app = app('onlineretailers.wd', ['uid' => 1, 'openid' => '1xxxx']);
 // 加密数据
 $str = $app::wdCommon()->encrypt('123456789');

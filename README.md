@@ -8,6 +8,14 @@
 [![Total Downloads](https://poser.pugx.org/MaxSihong/wd-service/downloads)](https://packagist.org/packages/MaxSihong/wd-service)
 [![License](https://poser.pugx.org/MaxSihong/wd-service/license)](https://packagist.org/packages/MaxSihong/wd-service)
 
+## 进度
+
+> 目前只打算把订单、商品模块整体封装，剩余模块后续看情况添加吧。如果需要其他模块使用可以自行 Fork 并提交合并，或者联系我协助添加。
+
+- [x] 项目搭建、容器封装、基础接口封装
+- [ ] 【订单管理】接口封装 (25%)
+- [ ] 【商品管理】接口封装 (32%)
+
 ## 环境需求
 
 - PHP >= 7.3.0

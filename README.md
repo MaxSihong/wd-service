@@ -8,6 +8,17 @@
 [![Total Downloads](https://poser.pugx.org/MaxSihong/wd-service/downloads)](https://packagist.org/packages/MaxSihong/wd-service)
 [![License](https://poser.pugx.org/MaxSihong/wd-service/license)](https://packagist.org/packages/MaxSihong/wd-service)
 
+## 目录
+
+- [进度](#进度)
+- [环境需求](#环境需求)
+- [注意事项](#注意事项)
+- [安装](#安装)
+- [使用示例](#使用示例)
+- [Laravel 使用示例](#laravel-使用示例)
+- [相关文档](#相关文档)
+- [License](#license)
+
 ## 进度
 
 > 目前只打算把订单、商品模块整体封装，剩余模块后续看情况添加吧。如果需要其他模块使用可以自行 Fork 并提交合并，或者联系我协助添加。
@@ -103,6 +114,11 @@ $app = app('onlineretailers.wd', ['uid' => 1, 'openid' => '1xxxx']);
 // 加密数据
 $str = $app::wdCommon()->encrypt('123456789');
 ```
+
+## 相关文档
+- [微店开放平台](https://open.weidian.com/#/index)
+- [微店开放平台 - 接入指南](https://open.weidian.com/#/guide/150)
+- [微店开放平台 - 消息推送](https://open.weidian.com/#/guide/147)
 
 ## License
 

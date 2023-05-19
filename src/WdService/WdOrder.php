@@ -68,14 +68,61 @@ class WdOrder extends Client
     /**
      * 跨境支付查询报关
      * @link https://open.weidian.com/#/api/306
-     * @param string $order_id
+     * @param string $order_id 订单ID
      * @return array
      * @author: 陈志洪
      * @since: 2023/5/19
      */
-    public function crossBorderDeclareCustomsPaymentQuery(string $order_id)
+    public function crossBorderDeclareCustomsPaymentQuery(string $order_id): array
     {
         return $this->api('vdian.crossborder.declarecustoms.paymentquery', '1.0', compact('order_id'));
+    }
+
+    /**
+     * 跨境支付申请报关
+     * @link https://open.weidian.com/#/api/305
+     * @param string $order_id 订单ID
+     * @return array
+     * @author: 陈志洪
+     * @since: 2023/5/19
+     */
+    public function crossBorderDeclareCustomsPaymentReport(string $order_id): array
+    {
+        return $this->api('vdian.crossborder.declarecustoms.paymentreport', '1.0', compact('order_id'));
+    }
+
+    /**
+     * 获取跨境口岸列表
+     * @link https://open.weidian.com/#/api/304
+     * @return array
+     * @since: 2023/5/19
+     * @author: 陈志洪
+     */
+    public function crossBorderElectronicPortQuery(): array
+    {
+        return $this->api('vdian.crossborder.electronicport.query');
+    }
+
+    /**
+     * 获取订单id列表
+     * @link https://open.weidian.com/#/api/128
+     * @param array $data
+     * @param string $data['order_date'] 订单日期 yyyy-MM-dd 格式
+     * @param int $data['group_type'] 1不包含微团购未成团订单，0包含，默认是1
+     * @param string $data['isweicenter'] 是否是微中心订单（0：全部订单，1微中心订单，2普通订单，默认是全部订单）
+     * @param int $data['page_num'] 返回页码，从1开始，默认1
+     * @param int $data['page_size'] 单页条数，默认值20，最大50条
+     * @return array
+     * @author: 陈志洪
+     * @since: 2023/5/19
+     */
+    public function orderIdsGet(array $data): array
+    {
+        $data = arrayListOnly($data, [
+            'order_date', 'isweicenter', 'page_num', 'page_size', 'group_type'
+        ]);
+
+        return $this->api('vdian.order.ids.get', '1.1', $data);
     }
 
     /**
@@ -89,6 +136,18 @@ class WdOrder extends Client
     public function show(string $order_id): array
     {
         return $this->api('vdian.order.get', '2.0', compact('order_id'));
+    }
+
+    /**
+     * 获取快递列表
+     * @link https://open.weidian.com/#/api/157
+     * @return array
+     * @since: 2023/5/17
+     * @author: 陈志洪
+     */
+    public function expressList(): array
+    {
+        return $this->api('vdian.order.expresslist');
     }
 
     /**
@@ -112,18 +171,6 @@ class WdOrder extends Client
         return $this->api('open.sellerCreateRefund', '1.0', compact(
             'order_id', 'reasonId', 'refundItemFee', 'refundExpressFee', 'refundDesc', 'refundSubOrderIdList'
         ));
-    }
-
-    /**
-     * 获取快递列表
-     * @link https://open.weidian.com/#/api/157
-     * @return array
-     * @since: 2023/5/17
-     * @author: 陈志洪
-     */
-    public function expressList(): array
-    {
-        return $this->api('vdian.order.expresslist', '1.0');
     }
 
     /**

@@ -9,6 +9,18 @@ use Maxsihong\WdService\Kernel\HttpClient\Client;
 class WdOrder extends Client
 {
     /**
+     * 电子卡券-核销码查询
+     * @param string $ecode 核销码
+     * @return array
+     * @author: 陈志洪
+     * @since: 2023/5/19
+     */
+    public function ecodeQuery(string $ecode)
+    {
+        return $this->api('vdian.order.ecode.query', '2.0', compact('ecode'));
+    }
+
+    /**
      * 获取订单列表
      * @link https://open.weidian.com/#/api/1065
      * @param array $data

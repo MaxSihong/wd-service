@@ -66,6 +66,19 @@ class WdOrder extends Client
     }
 
     /**
+     * 跨境支付查询报关
+     * @link https://open.weidian.com/#/api/306
+     * @param string $order_id
+     * @return array
+     * @author: 陈志洪
+     * @since: 2023/5/19
+     */
+    public function crossBorderDeclareCustomsPaymentQuery(string $order_id)
+    {
+        return $this->api('vdian.crossborder.declarecustoms.paymentquery', '1.0', compact('order_id'));
+    }
+
+    /**
      * 获取订单详情
      * @link https://open.weidian.com/#/api/1064
      * @param string $order_id 订单号

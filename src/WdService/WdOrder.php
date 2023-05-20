@@ -151,6 +151,19 @@ class WdOrder extends Client
     }
 
     /**
+     * 到店自提-核销码查询
+     * @link https://open.weidian.com/#/api/1071
+     * @param string $code 核销码
+     * @return array
+     * @author: 陈志洪
+     * @since: 2023/5/20
+     */
+    public function codeQuery(string $code): array
+    {
+        return $this->api('vdian.order.code.query', '2.0', compact('code'));
+    }
+
+    /**
      * 逆向-商家发起退款【需用户主动同意或拒绝，若7天用户未处理则订单会自动同意且退款】
      * @link https://open.weidian.com/#/api/300
      * @param string $order_id 订单号

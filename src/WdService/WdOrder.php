@@ -162,7 +162,51 @@ class WdOrder extends Client
     {
         return $this->api('vdian.order.code.query', '2.0', compact('code'));
     }
+    
+    /**
+     * @desc: 订单发货
+     * @link https://open.weidian.com/?shopId=1642388722#/api/57
+     * @param string $order_id 订单ID
+     * @param string $express_no 快递单号
+     * @param string $express_type 快递公司编号
+     * @param string $express_custom 自定义快递
+     * @param array $eCodeList 卡券码，旅游门票类订单必传，非门票订单不传。旅游门票订单发货时，只需传order_id、eCodeList即可。如果订单内商品数量n件，eCode传n个
+     * @param array $itemUpdates 商品更新数组
+     * @return array
+     * @since: 2023/5/17
+     * @author: 陈志洪
+     */
+    public function deliver(string $order_id, string $express_no, string $express_type, string $express_custom = '', array $eCodeList = [], array $itemUpdates = []): array
+    {
+        return $this->api('vdian.order.deliver', '1.0', compact(
+            'order_id', 'express_no', 'express_type', 'express_custom', 'eCodeList', 'itemUpdates'
+        ));
+    }
 
+    /**
+     * 到店自提-核销码核销
+     * @link https://open.weidian.com/?shopId=1642388722#/api/116
+     * @param string $code 核销码
+     * @param array $update_item 商品更新数组
+     * @param string $update_item[]['itemId'] 商品id
+     * @param string $update_item[]['skuId'] sku ID
+     * @param string $update_item[]['weight'] 发货重量, 缺省值 -1
+     * @return array
+     * @author: 陈志洪
+     * @since: 2023/5/21
+     */
+    public function codeVerify(string $code, array $update_item = []): array
+    {
+        $param = [
+            'PickingCode' => $code
+        ];
+        if (!empty($update_item)) {
+            $param['itemUpdates'] = $update_item;
+        }
+
+        return $this->api('vdian.order.code.verify', '1.0', $param);
+    }
+    
     /**
      * 逆向-商家发起退款【需用户主动同意或拒绝，若7天用户未处理则订单会自动同意且退款】
      * @link https://open.weidian.com/#/api/300
@@ -183,26 +227,6 @@ class WdOrder extends Client
     {
         return $this->api('open.sellerCreateRefund', '1.0', compact(
             'order_id', 'reasonId', 'refundItemFee', 'refundExpressFee', 'refundDesc', 'refundSubOrderIdList'
-        ));
-    }
-
-    /**
-     * @desc: 订单发货
-     * @link https://open.weidian.com/?shopId=1642388722#/api/57
-     * @param string $order_id 订单ID
-     * @param string $express_no 快递单号
-     * @param string $express_type 快递公司编号
-     * @param string $express_custom 自定义快递
-     * @param array $eCodeList 卡券码，旅游门票类订单必传，非门票订单不传。旅游门票订单发货时，只需传order_id、eCodeList即可。如果订单内商品数量n件，eCode传n个
-     * @param array $itemUpdates 商品更新数组
-     * @return array
-     * @since: 2023/5/17
-     * @author: 陈志洪
-     */
-    public function deliver(string $order_id, string $express_no, string $express_type, string $express_custom = '', array $eCodeList = [], array $itemUpdates = []): array
-    {
-        return $this->api('vdian.order.deliver', '1.0', compact(
-            'order_id', 'express_no', 'express_type', 'express_custom', 'eCodeList', 'itemUpdates'
         ));
     }
 

@@ -229,29 +229,6 @@ class WdOrder extends Client
 
         return $this->api('vdian.order.code.verify', '1.0', $param);
     }
-    
-    /**
-     * 逆向-商家发起退款【需用户主动同意或拒绝，若7天用户未处理则订单会自动同意且退款】
-     * @link https://open.weidian.com/#/api/300
-     * @param string $order_id 订单号
-     * @param int $reasonId 退款原因，1 表示：缺货；2 表示：协商一致退款；3 表示其他原因
-     * @param string $refundItemFee 退款商品费用
-     * @param string $refundExpressFee 退款运费，没有运费或是运费不退，填0.00
-     * @param string $refundDesc 退款描述
-     * @param array $refundSubOrderIdList 子订单号，可通过订单详情接口获取，订单详情中对应的字段是sub_order_id
-     * @return array
-     * @since: 2023/5/17
-     * @author: 陈志洪
-     * 备注：
-    1. 一次只能退订单的一个商品！
-    2. 目前只允许商品退，不允许整单退款，即使一个订单只有一种商品，退款时也要写子订单号！
-     */
-    public function sellerCreateRefund(string $order_id, int $reasonId, string $refundItemFee, string $refundExpressFee, string $refundDesc, array $refundSubOrderIdList): array
-    {
-        return $this->api('open.sellerCreateRefund', '1.0', compact(
-            'order_id', 'reasonId', 'refundItemFee', 'refundExpressFee', 'refundDesc', 'refundSubOrderIdList'
-        ));
-    }
 
     /**
      * @desc: 子单拆单发货
@@ -274,6 +251,29 @@ class WdOrder extends Client
     {
         return $this->api('vdian.order.deliver.split.sub', '1.0', compact(
             'order_id', 'spilt_item_list', 'itemUpdates'
+        ));
+    }
+    
+    /**
+     * 逆向-商家发起退款【需用户主动同意或拒绝，若7天用户未处理则订单会自动同意且退款】
+     * @link https://open.weidian.com/#/api/300
+     * @param string $order_id 订单号
+     * @param int $reasonId 退款原因，1 表示：缺货；2 表示：协商一致退款；3 表示其他原因
+     * @param string $refundItemFee 退款商品费用
+     * @param string $refundExpressFee 退款运费，没有运费或是运费不退，填0.00
+     * @param string $refundDesc 退款描述
+     * @param array $refundSubOrderIdList 子订单号，可通过订单详情接口获取，订单详情中对应的字段是sub_order_id
+     * @return array
+     * @since: 2023/5/17
+     * @author: 陈志洪
+     * 备注：
+    1. 一次只能退订单的一个商品！
+    2. 目前只允许商品退，不允许整单退款，即使一个订单只有一种商品，退款时也要写子订单号！
+     */
+    public function sellerCreateRefund(string $order_id, int $reasonId, string $refundItemFee, string $refundExpressFee, string $refundDesc, array $refundSubOrderIdList): array
+    {
+        return $this->api('open.sellerCreateRefund', '1.0', compact(
+            'order_id', 'reasonId', 'refundItemFee', 'refundExpressFee', 'refundDesc', 'refundSubOrderIdList'
         ));
     }
 }

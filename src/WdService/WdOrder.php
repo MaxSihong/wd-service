@@ -243,15 +243,29 @@ class WdOrder extends Client
      * @param string -express_custom 物流公司名称
      * @param string -express_no 物流单号
      * @param string -subOrderId 子订单号
-     * @return array
+     * @return array|string
      * @since: 2023/5/17
      * @author: 陈志洪
      */
-    public function deliverSplitSub(string $order_id, array $spilt_item_list, array $itemUpdates = []): array
+    public function deliverSplitSub(string $order_id, array $spilt_item_list, array $itemUpdates = [])
     {
         return $this->api('vdian.order.deliver.split.sub', '1.0', compact(
             'order_id', 'spilt_item_list', 'itemUpdates'
         ));
+    }
+
+    /**
+     * 延长确认收货时间
+     * @link https://open.weidian.com/#/api/62
+     * @param string $order_id
+     * @param int $delay_time
+     * @return array|string
+     * @since: 2023/5/22
+     * @author: 陈志洪
+     */
+    public function acceptDelay(string $order_id, int $delay_time)
+    {
+        return $this->api('vdian.order.accept.delay', '1.0', compact('order_id', 'delay_time'));
     }
     
     /**

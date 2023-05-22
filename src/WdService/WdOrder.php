@@ -306,6 +306,23 @@ class WdOrder extends Client
 
         return $this->api('vdian.order.express.modify', '1.0', $param);
     }
+
+    /**
+     * 修改订单价格
+     * @link https://open.weidian.com/#/api/59
+     * @param string $order_id 订单ID
+     * @param string $total_items_price 修改订单的商品总价
+     * @param string $express_price 修改订单运费价格
+     * @return array|string
+     * @author: 陈志洪
+     * @since: 2023/5/22
+     */
+    public function modify(string $order_id, string $total_items_price, string $express_price)
+    {
+        return $this->api('vdian.order.modify', '1.0', compact(
+            'order_id', 'total_items_price', 'express_price'
+        ));
+    }
     
     /**
      * 逆向-商家发起退款【需用户主动同意或拒绝，若7天用户未处理则订单会自动同意且退款】

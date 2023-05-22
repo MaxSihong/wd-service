@@ -6,8 +6,6 @@ use Maxsihong\WdService\Kernel\HttpClient\Client;
 
 class WdItem extends Client
 {
-    protected array $item_data = [];
-
     protected function initItemData($item): array
     {
         $itemDeliveryList = [4]; // 商品配送方式,4-快递发货;8-同城配送;16-到店自提

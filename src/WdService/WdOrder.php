@@ -281,6 +281,31 @@ class WdOrder extends Client
     {
         return $this->api('vdian.order.accept.delay', '1.0', compact('order_id', 'delay_time'));
     }
+
+    /**
+     * 修改物流信息
+     * @link https://open.weidian.com/#/api/58
+     * @param string $order_id 订单ID，说明:订单完成后不可修改
+     * @param string $express_no 快递单号，如果只需修改单号，可只传express_no，不传express_type
+     * @param int $express_type 快递公司编号
+     * @param string $deliver_id 发货批次编号，代表一次发货（订单详情接口获取）
+     * @param string $express_custom 自定义快递，特殊可选
+     * @return array|string
+     * @author: 陈志洪
+     * @since: 2023/5/22
+     */
+    public function expressModify(string $order_id, string $express_no, int $express_type = 0, string $deliver_id = '', string $express_custom = '')
+    {
+        $param = arrayListOnly(
+            compact(
+                'order_id', 'express_no', 'express_type', 'deliver_id', 'express_custom'
+            ),
+            ['order_id', 'express_no', 'express_type', 'deliver_id', 'express_custom'],
+            true
+        );
+
+        return $this->api('vdian.order.express.modify', '1.0', $param);
+    }
     
     /**
      * 逆向-商家发起退款【需用户主动同意或拒绝，若7天用户未处理则订单会自动同意且退款】

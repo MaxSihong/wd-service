@@ -174,7 +174,7 @@ if (!function_exists('arrayCopy')) {
  * @author: 陈志洪
  */
 if (!function_exists('arrayListOnly')) {
-    function arrayListOnly(array $list, array $fields)
+    function arrayListOnly(array $list, array $fields, bool $is_exclude_empty = false): array
     {
         if (empty($list)) {
             return $list;
@@ -183,6 +183,9 @@ if (!function_exists('arrayListOnly')) {
         $arr = [];
         foreach ($fields as $field) {
             if (isset($list[$field])) {
+                if ($is_exclude_empty && empty($list[$field])) {
+                    continue;
+                }
                 $arr[$field] = $list[$field];
             }
         }

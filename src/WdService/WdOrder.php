@@ -404,4 +404,93 @@ class WdOrder extends Client
             'order_id', 'reasonId', 'refundItemFee', 'refundExpressFee', 'refundDesc', 'refundSubOrderIdList'
         ));
     }
+
+    /**
+     * 逆向-不同意退款/退货原因
+     * @link https://open.weidian.com/#/api/213
+     * @param string $refundNo 退款单号
+     * @return array
+     * @author: 陈志洪
+     * @since: 2023/5/22
+     */
+    public function openSellerDisagreeReason(string $refundNo): array
+    {
+        return $this->api('open.sellerDisagreeReason', '1.0', compact('refundNo'));
+    }
+
+    /**
+     * 逆向-不同意退货
+     * @link https://open.weidian.com/#/api/214
+     * @param string $refundNo 退款单号
+     * @param string $refuseReason 拒绝原因
+     * @param string $disagreeReasonConfigKey 退款原因的key（从拒绝原因接口获取）
+     * @return array
+     * @author: 陈志洪
+     * @since: 2023/5/22
+     */
+    public function openSellerDisagreeGoods(string $refundNo, string $refuseReason, string $disagreeReasonConfigKey): array
+    {
+        return $this->api('open.sellerDisagreeGoods', '1.0', compact(
+            'refundNo', 'refuseReason', 'disagreeReasonConfigKey'
+        ));
+    }
+
+    /**
+     * 逆向-不同意退款
+     * @link https://open.weidian.com/#/api/215
+     * @param string $refundNo 退款单号
+     * @param string $refuseReason 拒绝原因
+     * @param string $disagreeReasonConfigKey 退款原因的key（从拒绝原因接口获取）
+     * @return array
+     * @author: 陈志洪
+     * @since: 2023/5/22
+     */
+    public function openSellerDisagreeRefund(string $refundNo, string $refuseReason, string $disagreeReasonConfigKey): array
+    {
+        return $this->api('open.sellerDisagreeRefund', '1.0', compact(
+            'refundNo', 'refuseReason', 'disagreeReasonConfigKey'
+        ));
+    }
+
+    /**
+     * 逆向-退款详情
+     * @link https://open.weidian.com/#/api/1072
+     * @param string $refundNo 退款单号，从订单详情查询接口获取，对应refund_no
+     * @return array
+     * @author: 陈志洪
+     * @since: 2023/5/22
+     */
+    public function openSellerQueryRefundDetail(string $refundNo): array
+    {
+        return $this->api('open.sellerQueryRefundDetail', '2.0', compact('refundNo'));
+    }
+
+    /**
+     * 逆向-退款列表
+     * @link https://open.weidian.com/#/api/1073
+     * @param string $param['refundStage'] 退款状态：1 售中，2 售后【可选】
+     * @param string $param['addTimeStart'] 退款单创建起始时间【可选】
+     * @param string $param['addTimeEnd'] 退款单创建结束时间【可选】
+     * @param string $param['updateTimeStart'] 退款单更新起始时间【可选】
+     * @param string $param['updateTimeEnd'] 退款单更新结束时间【可选】
+     * @param string $param['updateTimeEnd'] 退款单更新结束时间【可选】
+     * @param string $param['pageNum'] 翻页页码，第一页传0，第二页传1
+     * @param string $param['pageNum'] 翻页页码，第一页传0，第二页传1
+     * @param string $param['pageSize'] 页面数据条数，最大为50
+     * @param array $param['orderIdList'] 订单列表 此字段要么不传，如果要传不要传空值【可选】
+     * @param array $param['statusList'] 退款状态 1-创建退款，3-拒绝退款，4-同意退货，5-拒绝退货，6-逆向发货，9-逆向取消，10-逆向完成（同意退款）【可选】
+     * @param int $param['fromRefundNo'] 起始退款号，深翻页使用【可选】
+     * @return array
+     * @author: 陈志洪
+     * @since: 2023/5/22
+     */
+    public function openSellerQueryRefundList(array $param)
+    {
+        $param = arrayListOnly($param, [
+            'refundStage', 'addTimeStart', 'addTimeEnd', 'updateTimeStart', 'updateTimeEnd', 'pageNum', 'pageSize',
+            'orderIdList', 'statusList', 'fromRefundNo'
+        ]);
+
+        return $this->api('open.SellerQueryRefundList', '2.0', $param);
+    }
 }

@@ -323,6 +323,20 @@ class WdOrder extends Client
             'order_id', 'total_items_price', 'express_price'
         ));
     }
+
+    /**
+     * 修改订单备注
+     * @link https://open.weidian.com/#/api/109
+     * @param string $order_id 订单ID
+     * @param string $note 订单备注 最长200个字符
+     * @return array|string
+     * @since: 2023/5/22
+     * @author: 陈志洪
+     */
+    public function noteModify(string $order_id, string $note)
+    {
+        return $this->api('vdian.order.note.modify', '1.0', compact('order_id', 'note'));
+    }
     
     /**
      * 逆向-商家发起退款【需用户主动同意或拒绝，若7天用户未处理则订单会自动同意且退款】

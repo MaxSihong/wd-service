@@ -337,6 +337,50 @@ class WdOrder extends Client
     {
         return $this->api('vdian.order.note.modify', '1.0', compact('order_id', 'note'));
     }
+
+    /**
+     * 取消订单
+     * @link https://open.weidian.com/#/api/61
+     * @param string $order_id 订单ID
+     * @param string $reason 取消原因
+     * @return array|string
+     * @since: 2023/5/22
+     * @author: 陈志洪
+     */
+    public function cancel(string $order_id, string $reason)
+    {
+        return $this->api('vdian.order.cancel', '1.0', compact('order_id', 'reason'));
+    }
+
+    /**
+     * 逆向-同意退款
+     * @param string $refundNo 退款单号
+     * @return array
+     * @author: 陈志洪
+     * @since: 2023/5/22
+     */
+    public function openSellerAgreeRefund(string $refundNo): array
+    {
+        return $this->api('open.sellerAgreeRefund', '1.0', compact('refundNo'));
+    }
+
+    /**
+     * 逆向-同意退货
+     * @link https://open.weidian.com/#/api/216
+     * @param string $refundNo 退款单号
+     * @param string $recipients 收货人姓名(商家)
+     * @param string $telephone 收货人电话(商家)
+     * @param string $address 收货人地址(商家)
+     * @return array
+     * @since: 2023/5/22
+     * @author: 陈志洪
+     */
+    public function openSellerAgreeReturnGoods(string $refundNo, string $recipients, string $telephone, string $address): array
+    {
+        return $this->api('open.sellerAgreeReturnGoods', '1.0', compact(
+            'refundNo', 'recipients', 'telephone', 'address'
+        ));
+    }
     
     /**
      * 逆向-商家发起退款【需用户主动同意或拒绝，若7天用户未处理则订单会自动同意且退款】

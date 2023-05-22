@@ -484,7 +484,7 @@ class WdOrder extends Client
      * @author: 陈志洪
      * @since: 2023/5/22
      */
-    public function openSellerQueryRefundList(array $param)
+    public function openSellerQueryRefundList(array $param): array
     {
         $param = arrayListOnly($param, [
             'refundStage', 'addTimeStart', 'addTimeEnd', 'updateTimeStart', 'updateTimeEnd', 'pageNum', 'pageSize',

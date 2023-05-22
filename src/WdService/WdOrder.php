@@ -16,7 +16,7 @@ class WdOrder extends Client
      * @author: 陈志洪
      * @since: 2023/5/19
      */
-    public function ecodeQuery(string $ecode)
+    public function ecodeQuery(string $ecode): array
     {
         return $this->api('vdian.order.ecode.query', '2.0', compact('ecode'));
     }
@@ -151,26 +151,6 @@ class WdOrder extends Client
     }
 
     /**
-     * @desc: 订单发货
-     * @link https://open.weidian.com/?shopId=1642388722#/api/57
-     * @param string $order_id 订单ID
-     * @param string $express_no 快递单号
-     * @param string $express_type 快递公司编号
-     * @param string $express_custom 自定义快递
-     * @param array $eCodeList 卡券码，旅游门票类订单必传，非门票订单不传。旅游门票订单发货时，只需传order_id、eCodeList即可。如果订单内商品数量n件，eCode传n个
-     * @param array $itemUpdates 商品更新数组
-     * @return array
-     * @since: 2023/5/17
-     * @author: 陈志洪
-     */
-    public function deliver(string $order_id, string $express_no, string $express_type, string $express_custom = '', array $eCodeList = [], array $itemUpdates = []): array
-    {
-        return $this->api('vdian.order.deliver', '1.0', compact(
-            'order_id', 'express_no', 'express_type', 'express_custom', 'eCodeList', 'itemUpdates'
-        ));
-    }
-
-    /**
      * 到店自提-核销码查询
      * @link https://open.weidian.com/#/api/1071
      * @param string $code 核销码
@@ -184,25 +164,22 @@ class WdOrder extends Client
     }
 
     /**
-     * @desc: 订单部分发货
-     * @link https://open.weidian.com/?shopId=1642388722#/api/113
+     * @desc: 订单发货
+     * @link https://open.weidian.com/?shopId=1642388722#/api/57
      * @param string $order_id 订单ID
      * @param string $express_no 快递单号
      * @param string $express_type 快递公司编号
      * @param string $express_custom 自定义快递
-     * @param array $item 如果通过商品进行发货，则必传item_id(item_sku_id)字段;如果通过子订单号发货，则sub_order_id必传
-     * @param string $item[]['item_id'] 商品id，对应订单详情接口的item_id(不要传cur_shop_item_id)
-     * @param string $item[]['item_sku_id sku'] ID,对应订单详情接口的sku_id(不要传cur_shop_sku_id)
-     * @param string $item[]['sub_order_id'] 子订单号
+     * @param array $eCodeList 卡券码，旅游门票类订单必传，非门票订单不传。旅游门票订单发货时，只需传order_id、eCodeList即可。如果订单内商品数量n件，eCode传n个
      * @param array $itemUpdates 商品更新数组
-     * @return array
+     * @return array|string
      * @since: 2023/5/17
      * @author: 陈志洪
      */
-    public function splitDeliver(string $order_id, string $express_no, string $express_type, string $express_custom, array $item, array $itemUpdates = []): array
+    public function deliver(string $order_id, string $express_no, string $express_type, string $express_custom = '', array $eCodeList = [], array $itemUpdates = [])
     {
-        return $this->api('vdian.order.deliver.split', '1.0', compact(
-            'order_id', 'express_no', 'express_type', 'express_custom', 'item', 'itemUpdates'
+        return $this->api('vdian.order.deliver', '1.0', compact(
+            'order_id', 'express_no', 'express_type', 'express_custom', 'eCodeList', 'itemUpdates'
         ));
     }
 
@@ -228,6 +205,43 @@ class WdOrder extends Client
         }
 
         return $this->api('vdian.order.code.verify', '1.0', $param);
+    }
+
+    /**
+     * @desc: 订单部分发货
+     * @link https://open.weidian.com/?shopId=1642388722#/api/113
+     * @param string $order_id 订单ID
+     * @param string $express_no 快递单号
+     * @param string $express_type 快递公司编号
+     * @param string $express_custom 自定义快递
+     * @param array $item 如果通过商品进行发货，则必传item_id(item_sku_id)字段;如果通过子订单号发货，则sub_order_id必传
+     * @param string $item[]['item_id'] 商品id，对应订单详情接口的item_id(不要传cur_shop_item_id)
+     * @param string $item[]['item_sku_id sku'] ID,对应订单详情接口的sku_id(不要传cur_shop_sku_id)
+     * @param string $item[]['sub_order_id'] 子订单号
+     * @param array $itemUpdates 商品更新数组
+     * @return array|string
+     * @since: 2023/5/17
+     * @author: 陈志洪
+     */
+    public function splitDeliver(string $order_id, string $express_no, string $express_type, string $express_custom, array $item, array $itemUpdates = [])
+    {
+        return $this->api('vdian.order.deliver.split', '1.0', compact(
+            'order_id', 'express_no', 'express_type', 'express_custom', 'item', 'itemUpdates'
+        ));
+    }
+
+    /**
+     * 电子卡券-核销码核销
+     * @link https://open.weidian.com/#/api/1010
+     * @param string $orderId 订单号id
+     * @param array $ecodes 电子卡券-核销码查询 接口返回的code
+     * @return array
+     * @since: 2023/5/22
+     * @author: 陈志洪
+     */
+    public function ecodeVerify(string $orderId, array $ecodes): array
+    {
+        return $this->api('vdian.order.ecode.verify', '1.0', compact('orderId', 'ecodes'));
     }
 
     /**

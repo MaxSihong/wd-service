@@ -92,7 +92,7 @@ class WdItem extends Client
      * @since: 2023/5/18
      * @author: 陈志洪
      */
-    public function stockUpdate(array $items)
+    public function stockUpdate(array $items): array
     {
         $param = [
             'type' => 'set',
@@ -107,7 +107,7 @@ class WdItem extends Client
      * @link https://open.weidian.com/#/api/52
      * @param int $itemid 商品id
      * @param int $opt 1表示商品上架，2表示商品下架
-     * @return array
+     * @return array|string
      * @since: 2023/5/18
      * @author: 陈志洪
      */
@@ -124,7 +124,7 @@ class WdItem extends Client
      * @since: 2023/5/18
      * @author: 陈志洪
      */
-    public function cateGetList(int $showNoCate = 0)
+    public function cateGetList(int $showNoCate = 0): array
     {
         return $this->api('weidian.cate.get.list', '1.0', compact('showNoCate'));
     }
@@ -136,7 +136,7 @@ class WdItem extends Client
      * @since: 2023/5/18
      * @author: 陈志洪
      */
-    public function skuAttrsGet()
+    public function skuAttrsGet(): array
     {
         return $this->api('vdian.sku.attrs.get', '1.0');
     }

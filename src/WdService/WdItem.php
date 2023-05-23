@@ -68,6 +68,23 @@ class WdItem extends Client
     }
 
     /**
+     * 新增商品店铺属性
+     * @link https://open.weidian.com/#/api/1024
+     * @param string $propertyName 属性名称
+     * @param bool $buyerVisible 买家是否可见，设置为可见，在店铺搜索页面会展示出来，买家可通过条件搜索
+     * @param array $propertyValues 属性值
+     * @return array
+     * @author: 陈志洪
+     * @since: 2023/5/23
+     */
+    public function propertyAdd(string $propertyName, bool $buyerVisible, array $propertyValues): array
+    {
+        return $this->api('vdian.item.property.add', '1.0', compact(
+            'propertyName', 'buyerVisible', 'propertyValues'
+        ));
+    }
+
+    /**
      * 更新库存
      * @link https://open.weidian.com/#/api/108
      * @param array $items 需要更新的商品和库存信息

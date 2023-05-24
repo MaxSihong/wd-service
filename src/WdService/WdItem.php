@@ -85,6 +85,77 @@ class WdItem extends Client
     }
 
     /**
+     * 删除店铺商品属性或者属性值
+     * @link https://open.weidian.com/#/api/1026
+     * @param int $propertyId 属性ID 传属性ID删除属性
+     * @param array $propertyValueIds 属性值ID 传属性值ID删除属性值，不需要再传属性ID
+     * @return array|bool
+     * @since: 2023/5/24
+     * @author: 陈志洪
+     */
+    public function propertyDelete(int $propertyId, array $propertyValueIds)
+    {
+        return $this->api('vdian.item.property.delete', '1.0', compact('propertyId', 'propertyValueIds'));
+    }
+
+    /**
+     * 查询单个属性详细信息
+     * @link https://open.weidian.com/#/api/1028
+     * @param int $propertyId
+     * @return array
+     * @author: 陈志洪
+     * @since: 2023/5/24
+     */
+    public function propertyGetInfo(int $propertyId): array
+    {
+        return $this->api('vdian.item.property.getInfo', '1.0', compact('propertyId'));
+    }
+
+    /**
+     * 查询商品属性列表
+     * @link https://open.weidian.com/#/api/1027
+     * @param int $param['propertyId'] 属性ID
+     * @param string $param['propertyName'] 属性名称 模糊搜索
+     * @param bool $param['buyerVisible'] 是否买家可见
+     * @param string $param['createTimeStart'] 创建时间
+     * @param string $param['createTimeEnd'] 创建时间
+     * @param string $param['propertyValueName'] 属性值
+     * @return array
+     * @author: 陈志洪
+     * @since: 2023/5/24
+     */
+    public function propertyList(array $param): array
+    {
+        $param = arrayListOnly($param, [
+            'propertyId', 'propertyName', 'buyerVisible', 'createTimeStart', 'createTimeEnd', 'propertyValueName'
+        ]);
+
+        return $this->api('vdian.item.property.list', '1.0', $param);
+    }
+
+    /**
+     * 修改商品店铺属性
+     * @link https://open.weidian.com/#/api/1025
+     * @param int $param['propertyId'] 属性ID
+     * @param bool $param['buyerVisible'] 是否买家可见 true可见 false 不可见
+     * @param string $param['propertyName'] 属性名称
+     * @param int $param['status'] 属性状态 1 正常 0 删除
+     * @param int $param['sort'] 排序
+     * @param array $param['propertyValues'] 属性值相关数据
+     * @return array
+     * @author: 陈志洪
+     * @since: 2023/5/24
+     */
+    public function propertyUpdate(array $param): array
+    {
+        $param = arrayListOnly($param, [
+            'propertyId', 'buyerVisible', 'propertyName', 'status', 'sort', 'propertyValues'
+        ]);
+
+        return $this->api('vdian.item.property.update', '1.0', $param);
+    }
+
+    /**
      * 更新库存
      * @link https://open.weidian.com/#/api/108
      * @param array $items 需要更新的商品和库存信息

@@ -156,6 +156,19 @@ class WdItem extends Client
     }
 
     /**
+     * 查询商品详情
+     * @link https://open.weidian.com/#/api/174
+     * @param int $item_id 商品id
+     * @return array
+     * @author: 陈志洪
+     * @since: 2023/5/25
+     */
+    public function getItemDetail(int $item_id): array
+    {
+        return $this->api('vdian.item.getItemDetail', '1.0', compact('item_id'));
+    }
+
+    /**
      * 更新库存
      * @link https://open.weidian.com/#/api/108
      * @param array $items 需要更新的商品和库存信息

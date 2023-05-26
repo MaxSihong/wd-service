@@ -169,6 +169,24 @@ class WdItem extends Client
     }
 
     /**
+     * 添加商品详情
+     * @link https://open.weidian.com/#/api/175
+     * @param string $item_detail[]['url'] 图片的url（type=2填写此字段）
+     * @param int $item_detail[]['type'] type =1 文字模块,type =2 图片, type =3 商品模块，type=4视频模块
+     * @param string $item_detail[]['video_type'] 1表示腾迅视频，2表示美拍视频(type=4填写此字段)
+     * @param string $item_detail[]['text'] type=1填写此字段，详情文本
+     * @param string $item_detail[]['faceurl'] 首页地址
+     * @param int $item_detail[]['pos'] 记录某一个detail对象在detail中的位置
+     * @return array
+     * @author: 陈志洪
+     * @since: 2023/5/26
+     */
+    public function saveItemDetail(array $item_detail)
+    {
+        return $this->api('vdian.item.saveItemDetail', '1.0', compact('item_detail'));
+    }
+
+    /**
      * 更新库存
      * @link https://open.weidian.com/#/api/108
      * @param array $items 需要更新的商品和库存信息

@@ -181,9 +181,22 @@ class WdItem extends Client
      * @author: 陈志洪
      * @since: 2023/5/26
      */
-    public function saveItemDetail(array $item_detail)
+    public function saveItemDetail(array $item_detail): array
     {
         return $this->api('vdian.item.saveItemDetail', '1.0', compact('item_detail'));
+    }
+
+    /**
+     * 删除单个商品
+     * @link https://open.weidian.com/#/api/39
+     * @param string $itemid 商品id
+     * @return array|string
+     * @author: 陈志洪
+     * @since: 2023/5/26
+     */
+    public function delete(string $itemid)
+    {
+        return $this->api('vdian.item.delete', '1.0', compact('itemid'));
     }
 
     /**

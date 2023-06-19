@@ -57,6 +57,10 @@ class WdRefreshAccessToken
                 $ref_status = $this->app::wdAuth()->initiativeRefreshToken($uid, $openid);
             } catch (\Exception $e) {
                 // 记录错误日志
+                // refreshaccesstoken错误，或者refreshaccesstoken已失效
+                if ($e->getCode() == 10023) {
+                    $ref_status = false;
+                }
             }
             // 如果刷新失败则表示 token 超过30天，必须要用户重新授权
             if (!$ref_status) {

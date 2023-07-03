@@ -101,11 +101,11 @@ class Client extends BaseClient implements ClientInterface
 
         $this->result_status = $result['status'];
         unset($result['status']);
-        if (is_bool($result['result'])) {
-            $this->result_data = [];
-        } else {
-            $this->result_data = $result['result'] ?? $result; // 兼容部分接口返回结果没有result的响应（如商品上下架）
-        }
+
+        // 兼容删除商品相应的是数字  {'result': 200}
+        // 兼容部分接口返回结果没有result的响应（如商品上下架）
+        $result['result'] = $result['result'] ?? [];
+        $this->result_data = !is_array($result['result']) ? ['result' => $result['result']] : $result['result'];
 
         return $this->result_data;
     }

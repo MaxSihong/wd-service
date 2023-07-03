@@ -8,6 +8,8 @@
 [![Total Downloads](https://poser.pugx.org/MaxSihong/wd-service/downloads)](https://packagist.org/packages/MaxSihong/wd-service)
 [![License](https://poser.pugx.org/MaxSihong/wd-service/license)](https://packagist.org/packages/MaxSihong/wd-service)
 
+[![Security Status](https://www.murphysec.com/platform3/v31/badge/1675814827992047616.svg)](https://www.murphysec.com/console/report/1659398248208613376/1675814827992047616)
+
 ## 📑 目录
 
 - [进度](#-进度)

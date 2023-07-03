@@ -369,4 +369,17 @@ class WdItem extends Client
             'keyWord', 'fx', 'page', 'pageSize', 'selfCreate'
         ));
     }
+
+    /**
+     * 删除单个商品
+     * @link https://open.weidian.com/#/api/39
+     * @param int $itemid 商品id
+     * @return array
+     * @author: 陈志洪
+     * @since: 2023/7/3
+     */
+    public function deleteItem(int $itemid): array
+    {
+        return $this->api('vdian.item.delete', '1.0', compact('itemid'));
+    }
 }

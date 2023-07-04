@@ -59,7 +59,8 @@ class Client extends BaseClient implements ClientInterface
 
         $ref_req = compact('uri', 'version', 'post_data', 'header', 'time_out');
 
-        $param = urldecode(http_build_query($param));
+        $param = http_build_query($param);
+        // $param = urldecode(http_build_query($param));
 
         // 设置头部
         $header[] = 'Accept:application/json';
